@@ -9,6 +9,6 @@ Library           Selenium2Library    30    10
 Library           BuiltIn
 Library           String
 
-# Resource          ../api_external/lib/keywords_bizapi.robot
+Resource          ../web/lib/keywords_common.robot
 
 Variables         ../setting.py

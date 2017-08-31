@@ -10,3 +10,9 @@ PGS_URL = "http://localhost:8081"
 OKAMI_URL = "http://localhost:10010"
 SPMS_URL = "http://localhost:3030"
 
+# Browser
+DEFAULT_BROWSER = "firefox"
+WINDOW_WEIGHT = "1920"
+WINDOW_HEIGHT = "1080"
+
+MURANO_URL = "http://bo.cqgame.qa/#/"
