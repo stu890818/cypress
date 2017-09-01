@@ -1,7 +1,7 @@
 *** Keywords ***
 # -------- Element --------
-# Click ${text} Button
-#     Click Button    ${text}
+Click ${text} Button
+    Click Button    ${text}
 
 # Click ${text} Tab
 #     Wait Until Page Contains Element    //button[contains(.,"${text}")]
@@ -214,15 +214,15 @@
 #     Wait Until Page Contains Element    name=email
 #     Input Text    name=email    ${email}
 
-# Input User Password
-#     [Arguments]    ${password}
-#     Wait Until Page Contains Element    name=password
-#     Input Text    name=password    ${password}
+Input User Password
+    [Arguments]    ${password}
+    Wait Until Page Contains Element    //*[@placeholder="密码"]
+    Input Text    //*[@placeholder="密码"]    ${password}
 
-# Input User Username
-#     [Arguments]    ${email}
-#     Wait Until Page Contains Element    name=username
-#     Input Text    name=username    ${email}
+Input User Username
+    [Arguments]    ${email}
+    Wait Until Page Contains Element    //*[@placeholder="帐号"]
+    Input Text    //*[@placeholder="帐号"]    ${email}
 
 # Input Verification Key
 #     [Arguments]    ${verificationKey}
@@ -268,7 +268,8 @@
 #     Wait Until Page Contains    You are now signed out
 
 Open Default Browser
-    Open Browser    ${MURANO_URL}    ${DEFAULT_BROWSER}
+    [Arguments]    ${url}
+    Open Browser    ${url}    ${DEFAULT_BROWSER}
     Set Window Size    ${WINDOW_WEIGHT}    ${WINDOW_HEIGHT}
 
 # Switch To Specified Business
