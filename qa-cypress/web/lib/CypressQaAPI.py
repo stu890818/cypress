@@ -5,8 +5,8 @@ import os
 import requests
 import sys
 import uuid
-import datatime
-from datetime import datetime
+# import datatime
+# from datetime import datetime
 from exceptions import AssertionError
 from robot.libraries.BuiltIn import BuiltIn
 
