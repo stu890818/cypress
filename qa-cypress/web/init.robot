@@ -9,6 +9,7 @@ Library           Selenium2Library    30    10
 Library           BuiltIn
 Library           String
 Library           SikuliLibrary
+Library           ImageHorizonLibrary
 Library           ../web/lib/CypressQaAPI.py
 # Library           Remote        http://127.0.0.1:8081/
 

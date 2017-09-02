@@ -4,6 +4,9 @@ import json
 import os
 import requests
 import sys
+import uuid
+import datatime
+from datetime import datetime
 from exceptions import AssertionError
 from robot.libraries.BuiltIn import BuiltIn
 
@@ -77,7 +80,19 @@ class CypressQaAPI(object):
         player = "usertoken={}&gamehall={}&gametech={}&gameplat={}&gamecode={}&gametype={}&lang={}".format(usertoken, gamehall, gametech, gameplat, gamecode, gametype, lang)
         resp = self.__request(
             'post', "gameboy/player/gamelink".format(**locals()), data=player)
-        return resp   
+        return resp
+
+    def gameboy_player_deposit_post(self, amount, account, token=None):
+        self.__headers(token)
+        mtcode = uuid.uuid4()
+        # eventTime = '2017-06-27T17%3A34%3A41%2B08%3A00'
+        utc_now = datetime.now(utc)
+        eventTime = (utc_now.isoformat('T'))
+        player = "mtcode={}&amount={}&eventTime={}&account={}".format(mtcode, amount, eventTime, account)
+        print player
+        resp = self.__request(
+            'post', "gameboy/player/deposit".format(**locals()), data=player)
+        return resp     
 
 
 

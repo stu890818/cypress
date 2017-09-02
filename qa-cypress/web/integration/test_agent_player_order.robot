@@ -8,22 +8,32 @@ Test Timeout    300
 
 *** Variables ***
 ${agentSysToken}    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1OTliZjZmZDU0MDBiMDAwMDE0MjlhNmYiLCJhY2NvdW50IjoicUVtbWEiLCJvd25lciI6IjU5NGNiNjk4OThjNGExMDAwMTFkMDBiYSIsInBhcmVudCI6IjU5NGNiNjk4OThjNGExMDAwMTFkMDBiYSIsImN1cnJlbmN5IjoiQ05ZIiwianRpIjoiMjc1NDM4ODM3IiwiaWF0IjoxNTAzMzkzNTMzLCJpc3MiOiJDeXByZXNzIiwic3ViIjoiU1NUb2tlbiJ9.Qj72m6-DmXQ1D8knQvJzQN-QSDJXT-INtxqIYP2Jj_Q
-${imagePath}    ${CURDIR}../../res/1_picture
+${imageDir}    /Users/emma/workPlace/cypress/qa-cypress/web/res/1_picture/
 
 *** Test Cases ***
 Agent should can search player bet list
-    Agent Player Spin Game ID 1
+    Agent Player Spin Game ID 1    ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}
 
 *** Keywords ***
 Agent Player Spin Game ID 1
-    # Gameboy Player Post    ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}    ${agentSysToken}
-    # ${resp} =    Gameboy Player Login Post    ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}    ${agentSysToken}
-    # Set Test Variable    ${playerToken}    ${resp.json()['data']['usertoken']}
-    # ${resp} =    Gameboy Player Gamelink Post    ${playerToken}    ${gameHall}    ${gametech}    ${gameplat}    ${gamecode}    ${gametype}    ${lang}
-    # Set Test Variable    ${gameLink}    ${resp.json()['data']['url']}
-    # Open Default Browser    ${gameLink}
-    Add Image Path    ${imagePath}
-    Wait For Image    1_startPlay.png
+    [Arguments]    ${playerAccount}    ${playerPassword}    ${playerNickname}
+    Create Player And Get Game Link    ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}
+    Open Default Browser    ${gameLink}
+    Add Image Path    ${imageDir}
+    Wait Until Screen Contain    1_tittle.png    10
+    Press Combination    Key.space
+    Sleep    5s
+    Press Combination    Key.space
+
+Create Player And Get Game Link
+    [Arguments]    ${playerAccount}    ${playerPassword}    ${playerNickname}
+    Gameboy Player Post    ${playerAccount}    ${playerPassword}    ${playerNickname}    ${agentSysToken}
+    ${resp} =    Gameboy Player Login Post    ${playerAccount}    ${playerPassword}    ${playerNickname}    ${agentSysToken}
+    Set Test Variable    ${playerToken}    ${resp.json()['data']['usertoken']}
+    ${resp} =    Gameboy Player Gamelink Post    ${playerToken}    ${gameHall}    ${gametech}    ${gameplat}    ${gamecode}    ${gametype}    ${lang}
+    Set Test Variable    ${gameLink}    ${resp.json()['data']['url']}
+    ${resp} =    Gameboy Player Deposit Post    10000    ${playerAccount}
+    log to console    ${resp.json()}
 
 SuiteSetup
     ${random} =    Generate Random String  6  [LETTERS]
@@ -41,5 +51,5 @@ SuiteSetup
     # Go To Player History Page    ${CYPRESS_QA_URL}
 
 SuiteTeardown
-    Log Out
+    # Log Out
     Close All Browsers
