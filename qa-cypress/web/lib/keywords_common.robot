@@ -217,12 +217,12 @@ Click ${text} Button
 Input User Password
     [Arguments]    ${password}
     Wait Until Page Contains Element    //*[@placeholder="密码"]
-    Input Text    //*[@placeholder="密码"]    ${password}
+    Selenium2Library.Input Text    //*[@placeholder="密码"]    ${password}
 
 Input User Username
     [Arguments]    ${email}
     Wait Until Page Contains Element    //*[@placeholder="帐号"]
-    Input Text    //*[@placeholder="帐号"]    ${email}
+    Selenium2Library.Input Text    //*[@placeholder="帐号"]    ${email}
 
 # Input Verification Key
 #     [Arguments]    ${verificationKey}

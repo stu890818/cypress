@@ -7,13 +7,30 @@ import sys
 from exceptions import AssertionError
 from robot.libraries.BuiltIn import BuiltIn
 
+import logging
+# These two lines enable debugging at httplib level (requests->urllib3->http.client)
+# You will see the REQUEST, including HEADERS and DATA, and RESPONSE with HEADERS but without DATA.
+# The only thing missing will be the response.body which is not logged.
+try:
+   import http.client as http_client
+except ImportError:
+   # Python 2
+   import httplib as http_client
+http_client.HTTPConnection.debuglevel = 1
+# You must initialize logging, otherwise you'll not see debug output.
+logging.basicConfig()
+logging.getLogger().setLevel(logging.DEBUG)
+requests_log = logging.getLogger("requests.packages.urllib3")
+requests_log.setLevel(logging.DEBUG)
+requests_log.propagate = True
+
 
 class CypressQaAPI(object):
 
     def __init__(self):
         try:
             self.BuiltIn = BuiltIn()
-            self.HOST = self.BuiltIn.get_variable_value('${CYPRESS_QA_URL}')
+            self.HOST = self.BuiltIn.get_variable_value('${CYPRESS_QA_API_URL}')
         except:
             print('import BuiltIn failed')
 
@@ -25,24 +42,43 @@ class CypressQaAPI(object):
         }
 
     def __request(self, method, append='', **kwargs):
-        print 'https://{self.HOST}/api:1{append}'.format(**locals())
         resp = self.SESSION.request(
-            method, 'https://{self.HOST}/api:1{append}'.format(**locals()), **kwargs)
+            method, '{self.HOST}/{append}'.format(**locals()), **kwargs)
         return resp
 
-    def __resp_json(self, resp):
-        try:
-            return resp.json()
-        except (ValueError, KeyError, TypeError) as e:
-            print("Convert Json To Object Failed: {e}".format(**locals()))
-        return resp.content
-
     def __headers(self, token=None):
-        if token is None:
-            if self.TOKEN is None:
-                self.TOKEN = self.BuiltIn.run_keyword('ExoYeti.get_user_token')
-            token = self.TOKEN
-        self.SESSION.headers.update(
-            {'Authorization': 'token {token}'.format(**locals())})
+        if self.TOKEN is None:
+            if token is None:
+                print 'Authorization should not be none.'
+            else:
+                self.TOKEN = token
+        self.SESSION.headers.update({
+            'authorization': '%s' % self.TOKEN
+        })
 
 # -------------------------------------------
+
+    def gameboy_player_post(self, account, password, nickname, token=None):
+        self.__headers(token)
+        player = "account={}&password={}&nickname={}".format(account, password, nickname)
+        resp = self.__request(
+            'post', "gameboy/player".format(**locals()), data=player)
+        return resp
+
+    def gameboy_player_login_post(self, account, password, nickname, token=None):
+        self.__headers(token)
+        player = "account={}&password={}&nickname={}".format(account, password, nickname)
+        resp = self.__request(
+            'post', "gameboy/player/login".format(**locals()), data=player)
+        return resp
+
+    def gameboy_player_gamelink_post(self, usertoken, gamehall, gametech, gameplat, gamecode, gametype, lang, token=None):
+        self.__headers(token)
+        player = "usertoken={}&gamehall={}&gametech={}&gameplat={}&gamecode={}&gametype={}&lang={}".format(usertoken, gamehall, gametech, gameplat, gamecode, gametype, lang)
+        resp = self.__request(
+            'post', "gameboy/player/gamelink".format(**locals()), data=player)
+        return resp   
+
+
+
+

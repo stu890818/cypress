@@ -3,7 +3,7 @@
 Input Seq Number
     [Arguments]    ${seqNo}
     Wait Until Page Contains Element    //*[@id="root"]//input
-    Input Text    //*[@id="root"]//input    ${seqNo}
+    Selenium2Library.Input Text    //*[@id="root"]//input    ${seqNo}
 
 # -------- Exo-Keyword --------
 Go To Player History Page
