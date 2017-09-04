@@ -15,6 +15,6 @@ Log In
     Input User Username    ${userName}
     Input User Password    ${password}
     Click 登入 Button
-    Wait Until Page Contains Element    //*[@id="root"]/div/div[2]/aside/div[1]/div[1]/div
+    Wait Until Page Contains Element    //*[@id="root"]//aside/div[1]/div[1]/div
 
 # -------- Exo-Verify --------

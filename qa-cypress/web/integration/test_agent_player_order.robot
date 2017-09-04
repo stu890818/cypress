@@ -67,5 +67,5 @@ Take Screen And Win
 Verify Should Contain The Bet Data In The List
     [Arguments]    ${message}
     Wait Until Page Contains Element    //*[@id="root"]//div[2]/table/tbody/tr/td[4]
-    ${bet} =    Get Text    //*[@id="root"]//div[2]/table/tbody/tr/td[4]
+    ${bet} =    Selenium2Library.Get Text    //*[@id="root"]//div[2]/table/tbody/tr/td[4]
     Should Be Equal As Strings    ${bet}    ${message}

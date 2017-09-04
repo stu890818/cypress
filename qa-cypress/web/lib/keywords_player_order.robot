@@ -1,9 +1,5 @@
 *** Keywords ***
 # -------- Element --------
-Click Search Button
-    Wait Until Page Contains Element    //*[@id="root"]//button/div/div
-    Click 搜寻 Button
-
 Input Player Account
     [Arguments]    ${playerAccount}
     Wait Until Page Contains Element    //*[@id="root"]//div[2]/div/div/form/div[1]/div[2]/div/div/input
@@ -19,6 +15,6 @@ Go To Player Order Page
 Search Order With Player Account
     [Arguments]    ${playerAccount}
     Input Player Account    ${playerAccount}
-    Click Search Button
+    Click 搜索 Button
 
 # -------- Exo-Verify --------
