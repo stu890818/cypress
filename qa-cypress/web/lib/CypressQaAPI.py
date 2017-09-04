@@ -85,9 +85,9 @@ class CypressQaAPI(object):
     def gameboy_player_deposit_post(self, amount, account, token=None):
         self.__headers(token)
         mtcode = uuid.uuid4()
-        # eventTime = '2017-06-27T17%3A34%3A41%2B08%3A00'
-        utc_now = datetime.now(utc)
-        eventTime = (utc_now.isoformat('T'))
+        eventTime = '2017-06-27T17%3A34%3A41%2B08%3A00'
+        # utc_now = datetime.now(utc)
+        # eventTime = (utc_now.isoformat('T'))
         player = "mtcode={}&amount={}&eventTime={}&account={}".format(mtcode, amount, eventTime, account)
         print player
         resp = self.__request(

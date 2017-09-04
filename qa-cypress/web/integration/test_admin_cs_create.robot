@@ -9,7 +9,6 @@ Test Timeout       300
 *** Test Cases ***
 Admin should can create customer service
     Create Customer Service    ${csAccount}    ${csPassword}    ${csNickName}
-    # Verify The Customer Service Create Success
     Verify The Customer Service Is Exist    ${csAccount}
 
 *** Keywords ***
