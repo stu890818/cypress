@@ -15,10 +15,10 @@ import logging
 # You will see the REQUEST, including HEADERS and DATA, and RESPONSE with HEADERS but without DATA.
 # The only thing missing will be the response.body which is not logged.
 try:
-   import http.client as http_client
+    import http.client as http_client
 except ImportError:
-   # Python 2
-   import httplib as http_client
+    # Python 2
+    import httplib as http_client
 http_client.HTTPConnection.debuglevel = 1
 # You must initialize logging, otherwise you'll not see debug output.
 logging.basicConfig()
@@ -33,7 +33,8 @@ class CypressQaAPI(object):
     def __init__(self):
         try:
             self.BuiltIn = BuiltIn()
-            self.HOST = self.BuiltIn.get_variable_value('${CYPRESS_QA_API_URL}')
+            self.HOST = self.BuiltIn.get_variable_value(
+                '${CYPRESS_QA_API_URL}')
         except:
             print('import BuiltIn failed')
 
@@ -63,21 +64,24 @@ class CypressQaAPI(object):
 
     def gameboy_player_post(self, account, password, nickname, token=None):
         self.__headers(token)
-        player = "account={}&password={}&nickname={}".format(account, password, nickname)
+        player = "account={}&password={}&nickname={}".format(
+            account, password, nickname)
         resp = self.__request(
             'post', "gameboy/player".format(**locals()), data=player)
         return resp
 
     def gameboy_player_login_post(self, account, password, nickname, token=None):
         self.__headers(token)
-        player = "account={}&password={}&nickname={}".format(account, password, nickname)
+        player = "account={}&password={}&nickname={}".format(
+            account, password, nickname)
         resp = self.__request(
             'post', "gameboy/player/login".format(**locals()), data=player)
         return resp
 
     def gameboy_player_gamelink_post(self, usertoken, gamehall, gametech, gameplat, gamecode, gametype, lang, token=None):
         self.__headers(token)
-        player = "usertoken={}&gamehall={}&gametech={}&gameplat={}&gamecode={}&gametype={}&lang={}".format(usertoken, gamehall, gametech, gameplat, gamecode, gametype, lang)
+        player = "usertoken={}&gamehall={}&gametech={}&gameplat={}&gamecode={}&gametype={}&lang={}".format(
+            usertoken, gamehall, gametech, gameplat, gamecode, gametype, lang)
         resp = self.__request(
             'post', "gameboy/player/gamelink".format(**locals()), data=player)
         return resp
@@ -86,14 +90,18 @@ class CypressQaAPI(object):
         self.__headers(token)
         mtcode = uuid.uuid4()
         eventTime = '2017-06-27T17%3A34%3A41%2B08%3A00'
-        # utc_now = datetime.now(utc)
-        # eventTime = (utc_now.isoformat('T'))
-        player = "mtcode={}&amount={}&eventTime={}&account={}".format(mtcode, amount, eventTime, account)
-        print player
+        player = "mtcode={}&amount={}&eventTime={}&account={}".format(
+            mtcode, amount, eventTime, account)
         resp = self.__request(
             'post', "gameboy/player/deposit".format(**locals()), data=player)
-        return resp     
+        return resp
 
-
-
-
+    def gameboy_player_withdraw_post(self, amount, account, token=None):
+        self.__headers(token)
+        mtcode = uuid.uuid4()
+        eventTime = '2017-06-27T17%3A34%3A41%2B08%3A00'
+        player = "mtcode={}&amount={}&eventTime={}&account={}".format(
+            mtcode, amount, eventTime, account)
+        resp = self.__request(
+            'post', "gameboy/player/withdraw".format(**locals()), data=player)
+        return resp

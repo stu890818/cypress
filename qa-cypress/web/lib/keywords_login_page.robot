@@ -1,7 +1,7 @@
 *** Keywords ***
 # -------- Element --------
 
-# -------- Exo-Keyword --------
+# -------- Keyword --------
 Go To Login Page
     [Documentation]    Go to login page
     [Arguments]    ${url}
@@ -15,6 +15,6 @@ Log In
     Input User Username    ${userName}
     Input User Password    ${password}
     Click 登入 Button
-    Wait Until Page Contains Element    //*[@id="root"]//aside/div[1]/div[1]/div
+    Wait Until Page Contains Element    //span[contains(.,'${userName}')]
 
-# -------- Exo-Verify --------
+# -------- Verify --------

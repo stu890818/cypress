@@ -37,6 +37,7 @@ Create Player And Get Game Link
 
 Login Cypress And Search Bet List
     [Arguments]    ${user}    ${pwd}    ${url}    ${playerAccount}
+    Open Default Browser    ${url}
     Log In    ${user}    ${pwd}    ${url}
     Go To Player Order Page    ${url}
     Search Order With Player Account    ${playerAccount}

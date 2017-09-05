@@ -1,7 +1,7 @@
 *** Keywords ***
 # -------- Element --------
 
-# -------- Exo-Keyword --------
+# -------- Keyword --------
 Log Out
     [Documentation]    log out page
     Wait Until Page Contains Element    //*[@id="root"]//button[2]
@@ -9,4 +9,4 @@ Log Out
     Wait Until Page Contains    LOGIN
     Title Should Be    管端后台系统
 
-# -------- Exo-Verify --------
+# -------- Verify --------
