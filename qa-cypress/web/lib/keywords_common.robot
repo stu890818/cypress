@@ -24,6 +24,11 @@ Get Column Text And Verify Should Be Equal
     ${msg} =    Selenium2Library.Get Text    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/${line}/td[${column}]
     Should Be Equal As Strings    ${msg}    ${data}
 
+Get Column Text And Verify Should Be Equal For Player Manage
+    [Arguments]    ${line}    ${column}    ${data}
+    ${msg} =    Selenium2Library.Get Text    //*[@id="root"]//div[2]/table/tbody/${line}/td${column}
+    Should Be Equal As Strings    ${msg}    ${data}
+
 Open Default Browser
     [Arguments]    ${url}
     Open Browser    ${url}    ${DEFAULT_BROWSER}

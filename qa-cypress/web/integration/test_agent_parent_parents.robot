@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite of agent parents parent page
+Documentation     Test suite of agent parent parents page
 Resource          ../init.robot
 
 Suite Setup    SuiteSetup

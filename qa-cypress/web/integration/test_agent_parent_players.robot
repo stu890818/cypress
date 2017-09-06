@@ -7,12 +7,11 @@ Suite Teardown     SuiteTeardown
 Test Timeout    300
 
 *** Variables ***
-${agentSysToken}    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1OTliZjZmZDU0MDBiMDAwMDE0MjlhNmYiLCJhY2NvdW50IjoicUVtbWEiLCJvd25lciI6IjU5NGNiNjk4OThjNGExMDAwMTFkMDBiYSIsInBhcmVudCI6IjU5NGNiNjk4OThjNGExMDAwMTFkMDBiYSIsImN1cnJlbmN5IjoiQ05ZIiwianRpIjoiMjc1NDM4ODM3IiwiaWF0IjoxNTAzMzkzNTMzLCJpc3MiOiJDeXByZXNzIiwic3ViIjoiU1NUb2tlbiJ9.Qj72m6-DmXQ1D8knQvJzQN-QSDJXT-INtxqIYP2Jj_Q
 ${imageDir}    ${CURDIR}/../res/1_picture/
 
 *** Test Cases ***
 Agent should can search agent player's report
-    [Setup]    TestSetupForSpinFGame1DefineValue
+    [Setup]    TestSetupForSpinGame1DefineValue
     Agent Player Spin Game ID 1    ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}
     Login Cypress And Search Agent Player's Report    ${AGENT_USER}    ${AGENT_USER_PASSWORD}    ${CYPRESS_QA_URL}    ${agentPlayerAccount}
     Verify Should Can Search Agent Player's Report Success    ${agentPlayerAccount}    ${AGENT_USER}    ${gameHall}    ${gameName}    ${betMoney}    ${totalWin}    ${balValue}0    ${retRateValue}%    ${avgBetValue}    ${currency}
@@ -29,8 +28,8 @@ Agent Player Spin Game ID 1
 
 Create Player And Get Game Link
     [Arguments]    ${playerAccount}    ${playerPassword}    ${playerNickname}
-    Gameboy Player Post    ${playerAccount}    ${playerPassword}    ${playerNickname}    ${agentSysToken}
-    ${resp} =    Gameboy Player Login Post    ${playerAccount}    ${playerPassword}    ${playerNickname}    ${agentSysToken}
+    Gameboy Player Post    ${playerAccount}    ${playerPassword}    ${playerNickname}    ${AGENT_SYS_TOKEN}
+    ${resp} =    Gameboy Player Login Post    ${playerAccount}    ${playerPassword}    ${playerNickname}    ${AGENT_SYS_TOKEN}
     Set Test Variable    ${playerToken}    ${resp.json()['data']['usertoken']}
     ${resp} =    Gameboy Player Gamelink Post    ${playerToken}    ${gameHall}    ${gametech}    ${gameplat}    ${gamecode}    ${gametype}    ${lang}
     Set Test Variable    ${gameLink}    ${resp.json()['data']['url']}
@@ -65,7 +64,7 @@ SuiteTeardown
     Log Out
     Close All Browsers
 
-TestSetupForSpinFGame1DefineValue
+TestSetupForSpinGame1DefineValue
     ${balValue} =    Evaluate    ${totalWin} - ${betMoney}
     ${retRateValue} =    Evaluate    round(((${totalWin} / ${betMoney}) * 100), 4)
     ${avgBetValue} =    Evaluate    int(${betMoney} / ${spinCount})
