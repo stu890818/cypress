@@ -81,23 +81,13 @@ Take Screen And Win
 Verify Should Can Search Agent Player's Report Success
     [Arguments]    ${playerAccount}    ${agent}    ${hall}    ${Name}    ${bet}    ${win}    ${balance}    ${returnRate}    ${avgBet}    ${currency}
     Wait Until Page Contains Element    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[2]
-    ${msg} =    Selenium2Library.Get Text    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[2]
-    Should Be Equal As Strings    ${msg}    ${playerAccount}
-    ${msg} =    Selenium2Library.Get Text    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[3]
-    Should Be Equal As Strings    ${msg}    ${agent}
-    ${msg} =    Selenium2Library.Get Text    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[4]
-    Should Be Equal As Strings    ${msg}    ${hall}
-    ${msg} =    Selenium2Library.Get Text    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[5]
-    Should Be Equal As Strings    ${msg}    ${Name}
-    ${msg} =    Selenium2Library.Get Text    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[6]
-    Should Be Equal As Strings    ${msg}    ${bet}
-    ${msg} =    Selenium2Library.Get Text    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[7]
-    Should Be Equal As Strings    ${msg}    ${win}
-    ${msg} =    Selenium2Library.Get Text    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[8]
-    Should Be Equal As Strings    ${msg}    ${balance}
-    ${msg} =    Selenium2Library.Get Text    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[9]
-    Should Be Equal As Strings    ${msg}    ${returnRate}
-    ${msg} =    Selenium2Library.Get Text    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[10]
-    Should Be Equal As Strings    ${msg}    ${avgBet}
-    ${msg} =    Selenium2Library.Get Text    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[11]
-    Should Be Equal As Strings    ${msg}    ${currency}
+    Get Column Text And Verify Should Be Equal    tr    2    ${playerAccount}
+    Get Column Text And Verify Should Be Equal    tr    3    ${agent}
+    Get Column Text And Verify Should Be Equal    tr    4    ${hall}
+    Get Column Text And Verify Should Be Equal    tr    5    ${Name}
+    Get Column Text And Verify Should Be Equal    tr    6    ${bet}
+    Get Column Text And Verify Should Be Equal    tr    7    ${win}
+    Get Column Text And Verify Should Be Equal    tr    8    ${balance}
+    Get Column Text And Verify Should Be Equal    tr    9    ${returnRate}
+    Get Column Text And Verify Should Be Equal    tr    10    ${avgBet}
+    Get Column Text And Verify Should Be Equal    tr    11    ${currency}

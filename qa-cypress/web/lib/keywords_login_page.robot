@@ -15,6 +15,6 @@ Log In
     Input User Username    ${userName}
     Input User Password    ${password}
     Click 登入 Button
-    Wait Until Page Contains Element    //span[contains(.,'${userName}')]
+    Wait Until Keyword Succeeds    2 min    5 sec    Wait Until Element Contains    //*[@id="root"]//div[2]/div[1]/span[2]    玩家列表
 
 # -------- Verify --------

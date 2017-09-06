@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite of agent parents parent page
+Documentation     Test suite of agent report financial page
 Resource          ../init.robot
 
 Suite Setup    SuiteSetup
@@ -10,11 +10,11 @@ Test Timeout    300
 ${imageDir}    ${CURDIR}/../res/1_picture/
 
 *** Test Cases ***
-Agent should can search agent report
+Agent should can search agent financial report
     [Setup]    TestSetupForSpinGameDefineValue
     Agent Player Spin Game ID 1    ${GENERAL_AGENT_USER}  ${GENERAL_AGENT_USER_PASSWORD}  ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}
-    Login Cypress And Search Agent Report    ${agentAccount}    ${accountPwd}    ${CYPRESS_QA_URL}    ${agentPlayerAccount}
-    Verify Should Can Search Agent Report Success    ${agentAccount}    1    ${betMoney}    ${totalWin}    ${balValue}0    ${currency}    ${retRateValue}%    1    0    1    ${avgBetValue}0
+    Login Cypress And Search Agent Financial Report    ${agentAccount}    ${accountPwd}    ${CYPRESS_QA_URL}    ${agentPlayerAccount}
+    Verify Should Can Search Agent Report Finance Success    ${agentAccount}    ${balValue}0    0.00    ${comm}%    ${currency}
 
 *** Keywords ***
 Agent Player Spin Game ID 1
@@ -49,11 +49,11 @@ Create Player And Get Game Link
     Set Test Variable    ${gameLink}    ${resp.json()['data']['url']}
     ${resp} =    Gameboy Player Deposit Post    10000    ${playerAccount}
 
-Login Cypress And Search Agent Report
+Login Cypress And Search Agent Financial Report
     [Arguments]    ${user}    ${pwd}    ${url}    ${playerAccount}
     Open Default Browser    ${url}
     Log In    ${user}    ${pwd}    ${url}
-    Go To Parent Parents Page    ${url}
+    Go To Report Finance Page    ${url}
     Click 搜索 Button
 
 SuiteSetup
@@ -88,20 +88,14 @@ TestSetupForSpinGameDefineValue
 
 Take Screen And Win
     Sleep    10s
-    Screenshot.Take Screenshot    agent_parent_parents_1.jpg    width=800px
+    Screenshot.Take Screenshot    agent_report_finance_1.jpg    width=800px
     Press Combination    Key.space
 
-Verify Should Can Search Agent Report Success
-    [Arguments]    ${account}    ${player}    ${bet}    ${win}    ${balance}    ${currency}    ${returnRate}    ${reaPlayer}    ${openGame}    ${gameCount}    ${avgBet}
-    Wait Until Page Contains Element    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[2]
-    Get Column Text And Verify Should Be Equal    tr    2    ${account}
-    Get Column Text And Verify Should Be Equal    tr    3    ${player}
-    Get Column Text And Verify Should Be Equal    tr    4    ${bet}
-    Get Column Text And Verify Should Be Equal    tr    5    ${win}
-    Get Column Text And Verify Should Be Equal    tr    6    ${balance}
-    Get Column Text And Verify Should Be Equal    tr    7    ${currency}
-    Get Column Text And Verify Should Be Equal    tr    8    ${returnRate}
-    Get Column Text And Verify Should Be Equal    tr    9    ${reaPlayer}
-    Get Column Text And Verify Should Be Equal    tr    10    ${openGame}
-    Get Column Text And Verify Should Be Equal    tr    11    ${gameCount}
-    Get Column Text And Verify Should Be Equal    tr    12    ${avgBet}
+Verify Should Can Search Agent Report Finance Success
+    [Arguments]    ${account}    ${win}    ${comm}    ${commPercent}    ${currency}
+    Wait Until Page Contains Element    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[1]
+    Get Column Text And Verify Should Be Equal    tr    1    ${account}
+    Get Column Text And Verify Should Be Equal    tr    2    ${win}
+    Get Column Text And Verify Should Be Equal    tr    3    ${comm}
+    Get Column Text And Verify Should Be Equal    tr    4    ${commPercent}
+    Get Column Text And Verify Should Be Equal    tr    6    ${currency}

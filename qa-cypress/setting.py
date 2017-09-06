@@ -10,10 +10,10 @@ CYPRESS_QA_URL = "http://bo.cqgame.qa"
 
 # Cypress qa user
 ADMIN_USER = "adminqa"
-GENERAL_AGENT_USER = "qa5566"
+GENERAL_AGENT_USER = "qtest20170830"
 AGENT_USER = "qEmma"
 ADMIN_USER_PASSWORD = "cy5566"
-GENERAL_AGENT_USER_PASSWORD = "iLoveCQ9"
+GENERAL_AGENT_USER_PASSWORD = "aaaa1234"
 AGENT_USER_PASSWORD = "aaaa1234"
 
 #Cypress qa api url
