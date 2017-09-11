@@ -14,7 +14,7 @@ Agent should can search agent financial report
     [Setup]    TestSetupForSpinGameDefineValue
     Agent Player Spin Game ID 1    ${GENERAL_AGENT_USER}  ${GENERAL_AGENT_USER_PASSWORD}  ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}
     Login Cypress And Search Agent Financial Report    ${agentAccount}    ${accountPwd}    ${CYPRESS_QA_URL}    ${agentPlayerAccount}
-    Verify Should Can Search Agent Report Finance Success    ${agentAccount}    ${balValue}0    0.00    ${comm}%    ${currency}
+    Verify Should Can Search Agent Report Finance Success    ${agentAccount}    ${balValue}0    0.00    3%    ${currency}
 
 *** Keywords ***
 Agent Player Spin Game ID 1
