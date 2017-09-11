@@ -6,7 +6,6 @@ Library           OperatingSystem
 Library           Process
 Library           RequestsLibrary
 Library           Selenium2Library
-Library           BuiltIn
 Library           String
 Library           SikuliLibrary
 Library           ImageHorizonLibrary

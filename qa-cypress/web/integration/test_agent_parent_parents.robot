@@ -19,11 +19,7 @@ Agent should can search agent report
 *** Keywords ***
 Agent Player Spin Game ID 1
     [Arguments]    ${user}    ${pwd}    ${playerAccount}    ${playerPassword}    ${playerNickname}
-    Create Player And Get Game Link    ${user}    ${pwd}    ${CYPRESS_QA_URL}    ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}
-    Go To    ${gameLink}
-    Add Image Path    ${imageDir}
-    Wait Until Screen Contain    1_tittle.png    10
-    Press Combination    Key.space
+    Create Player And Agent Then Get Game Link    ${user}    ${pwd}    ${CYPRESS_QA_URL}    ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}
     Take Screen And Win
 
 Create New Agent And Set Agent Token
@@ -39,7 +35,7 @@ Create New Agent And Set Agent Token
     ${sysToken} =    Get Agent Sys Token
     Set Test Variable    ${sysToken}
 
-Create Player And Get Game Link
+Create Player And Agent Then Get Game Link
     [Arguments]    ${user}    ${pwd}    ${url}    ${playerAccount}    ${playerPassword}    ${playerNickname}
     Create New Agent And Set Agent Token    ${user}    ${pwd}    ${url}
     Gameboy Player Post    ${playerAccount}    ${playerPassword}    ${playerNickname}    ${sysToken}
@@ -87,6 +83,10 @@ TestSetupForSpinGameDefineValue
     Set Test Variable    ${avgBetValue}
 
 Take Screen And Win
+    Go To    ${gameLink}
+    Add Image Path    ${imageDir}
+    Wait Until Screen Contain    1_tittle.png    10
+    Press Combination    Key.space
     Sleep    10s
     Screenshot.Take Screenshot    agent_parent_parents_1.jpg    width=800px
     Press Combination    Key.space

@@ -19,11 +19,7 @@ Agent should can search player order list
 Agent Player Spin Game ID 1
     [Arguments]    ${playerAccount}    ${playerPassword}    ${playerNickname}
     Create Player And Get Game Link    ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}
-    Open Default Browser    ${gameLink}
-    Add Image Path    ${imageDir}
-    Wait Until Screen Contain    1_tittle.png    10
-    Press Combination    Key.space
-    Take Screen And Win
+    Open Game link And Spin
 
 Create Player And Get Game Link
     [Arguments]    ${playerAccount}    ${playerPassword}    ${playerNickname}
@@ -62,7 +58,11 @@ SuiteTeardown
     Log Out
     Close All Browsers
 
-Take Screen And Win
+Open Game link And Spin
+    Open Default Browser    ${gameLink}
+    Add Image Path    ${imageDir}
+    Wait Until Screen Contain    1_tittle.png    10
+    Press Combination    Key.space
     Sleep    10s
     Screenshot.Take Screenshot    agent_player_order_1.jpg    width=800px
     Press Combination    Key.space

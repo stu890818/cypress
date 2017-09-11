@@ -20,10 +20,6 @@ Agent should can search agent player's report
 Agent Player Spin Game ID 1
     [Arguments]    ${playerAccount}    ${playerPassword}    ${playerNickname}
     Create Player And Get Game Link    ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}
-    Open Default Browser    ${gameLink}
-    Add Image Path    ${imageDir}
-    Wait Until Screen Contain    1_tittle.png    10
-    Press Combination    Key.space
     Take Screen And Win
 
 Create Player And Get Game Link
@@ -73,6 +69,10 @@ TestSetupForSpinGame1DefineValue
     Set Test Variable    ${avgBetValue}
 
 Take Screen And Win
+    Open Default Browser    ${gameLink}
+    Add Image Path    ${imageDir}
+    Wait Until Screen Contain    1_tittle.png    10
+    Press Combination    Key.space
     Sleep    10s
     Screenshot.Take Screenshot    agent_parent_players_1.jpg    width=800px
     Press Combination    Key.space
