@@ -21,3 +21,5 @@ AGENT_SYS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1OTliZjZm
 
 #Cypress qa api url
 CYPRESS_QA_API_URL = "http://api.cqgame.qa"
+CYPRESS_TEST_URL = "http://192.168.0.130:8080/dev"
+

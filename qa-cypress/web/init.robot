@@ -7,9 +7,10 @@ Library           Process
 Library           RequestsLibrary
 Library           Selenium2Library
 Library           String
-Library           SikuliLibrary
-Library           ImageHorizonLibrary
+# Library           SikuliLibrary
+# Library           ImageHorizonLibrary
 Library           Screenshot
+Library           XvfbRobot
 Library           ../web/lib/CypressQaAPI.py
 
 Resource          ../web/lib/keywords_common.robot
