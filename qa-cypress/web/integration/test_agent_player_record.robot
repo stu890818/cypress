@@ -16,23 +16,29 @@ ${imageDir}    ${CURDIR}/../res/1_picture/
 #     Verify Should Contain The Transcation In The List    tr    ${AGENT_USER}    CNY    10,000.00    10,000.00    存款    交易成功
 #     Verify Should Contain The Transcation In The List    tr[2]    ${AGENT_USER}    CNY    10,000.00    0.00    提款    交易成功
 
-# test for use s tool
-#     ${resp} =    Gameboy Player Login Post    qaemmayang    1234    qaemmayang    ${AGENT_SYS_TOKEN}
-#     Set Test Variable    ${playerToken}    ${resp.json()['data']['usertoken']}
-#     ${resp} =    Gameboy Player Gamelink Post    ${playerToken}    ${gameHall}    ${gametech}    ${gameplat}    ${gamecode}    ${gametype}    ${lang}
-#     Set Test Variable    ${gameLink}    ${resp.json()['data']['url']}
-#     Open Default Browser    ${gameLink}
-#     Add Image Path    ${imageDir}
-#     Wait Until Keyword Succeeds    2 min    5 sec    SikuliLibrary.Click    1_start.png
-#     Wait Until Keyword Succeeds    2 min    5 sec    SikuliLibrary.Click    1_start.png
+test for use s tool
+    Create Webdriver    PhantomJS
+    ${resp} =    Gameboy Player Login Post    qaemmayang    1234    qaemmayang    ${AGENT_SYS_TOKEN}
+    Set Test Variable    ${playerToken}    ${resp.json()['data']['usertoken']}
+    ${resp} =    Gameboy Player Gamelink Post    ${playerToken}    ${gameHall}    ${gametech}    ${gameplat}    ${gamecode}    ${gametype}    ${lang}
+    Set Test Variable    ${gameLink}    ${resp.json()['data']['url']}
+    Go To    ${gameLink}
+    Add Image Path    ${imageDir}
+    Wait Until Keyword Succeeds    2 min    5 sec    SikuliLibrary.Click    1_start.png
+    Wait Until Keyword Succeeds    2 min    5 sec    SikuliLibrary.Click    1_start.png
 
-Create Headless Browser
-    Start Virtual Display    1920    1080
-    Open Browser   http://google.com
-    Set Window Size    1920    1080
-    ${title}=    Get Title
-    Should Be Equal    Google    {title}
-    [Teardown]    Close Browser
+# Create Headless Browser
+#     Start Virtual Display    1920    1080
+#     Open Browser   http://google.com
+#     Set Window Size    1920    1080
+#     ${title}=    Get Title
+#     Should Be Equal    Google    {title}
+#     [Teardown]    Close Browser
+
+# Test
+#     Go To    http://google.com
+#     ${title} =    Get Title
+#     Should Be Equal    Google    ${title}
 
 *** Keywords ***
 Create A Player Do Deposit And Withdraw
