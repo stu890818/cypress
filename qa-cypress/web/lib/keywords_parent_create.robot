@@ -21,7 +21,7 @@ Input Agent Account Password
     Selenium2Library.Input Text    //*[@id="root"]//div[2]/div/div/input    ${pwd}
 
 # -------- Keyword --------
-Create A New Agent
+Create A New User
     [Arguments]    ${account}    ${pwd}    ${name}    ${comm}
     Input Agent account    ${account}
     Input Agent Account Password    ${pwd}
