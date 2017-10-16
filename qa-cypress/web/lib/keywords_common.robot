@@ -30,8 +30,9 @@ Get User SYS Token
     Log In    ${userName}    ${password}    ${CYPRESS_QA_API_URL}
     Go To Parent List Parent Info Page
     ${sysToken} =     Get Sys Token
-    Set Test Variable    ${sysToken}
-    Log Out
+    [Return]    ${sysToken}
+    # Set Test Variable
+    # Log Out
 
 Get Column Text And Verify Should Be Equal
     [Arguments]    ${line}    ${column}    ${data}

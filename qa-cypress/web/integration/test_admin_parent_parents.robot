@@ -8,8 +8,9 @@ Test Timeout    300
 
 *** Test Cases ***
 Admin should can search agent report
-    [Setup]    TestSetupForSpinGameDefineValue
-    Agent Player Spin Game ID 1    ${GENERAL_AGENT_USER}  ${GENERAL_AGENT_USER_PASSWORD}  ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}
+
+    # [Setup]    TestSetupForSpinGameDefineValue
+    # Agent Player Spin Game ID 1    ${GENERAL_AGENT_USER}  ${GENERAL_AGENT_USER_PASSWORD}  ${agentPlayerAccount}    ${agentPlayerPassword}    ${agentPlayerNickname}
     Login Cypress And Search Agent Report    ${agentAccount}    ${accountPwd}    ${CYPRESS_QA_URL}    ${agentPlayerAccount}
     Verify Should Can Search Agent Report Success    ${agentAccount}    1    ${betMoney}    ${totalWin}    ${balValue}0    ${currency}    ${retRateValue}%    1    0    1    ${avgBetValue}0
 
@@ -26,18 +27,24 @@ SuiteSetup
     Set Suite Variable    ${totalWin}    150.00
     Set Suite Variable    ${spinCount}    1
     Create A Random Role User    ${ADMIN_USER}    ${ADMIN_USER_PASSWORD}    ${roleGen}    ${roleGen}    ${comm}
-    Create A Random Role User    ${GENERAL_AGENT_USER}    ${GENERAL_USER_PASSWORD}    ${roleAgn}    ${roleAgn}    ${comm}
+    Create A Random Role User    ${roleGen}    ${roleGen}    ${roleAgn}    ${roleAgn}    ${comm}
+    ${sysToken} =    Get User SYS Token    ${roleAgn}    ${roleAgn}
+    Player Spin Game
 
 Player Spin Game
+
+
+
+TestSetUpForGetGameLink
     [Arguments]
     ${time} =    Evaluate    time.strftime("%Y%m%d%H%M%S")    time
     Set Test Variable    ${playerA}    playerA${time}
-    Gameboy Player Post    ${playerA}    ${playerA}    ${playerA}    ${sysToken}
-    ${resp} =    Gameboy Player Login Post    ${playerAccount}    ${playerPassword}    ${playerNickname}    ${sysToken}
+    Gameboy Player Post    ${agentPlayerAct}    ${agentPlayerPwd}    ${agentPlayerNke}    ${sysToken}
+    ${resp} =    Gameboy Player Login Post    ${agentPlayerAct}    ${agentPlayerPwd}    ${agentPlayerNke}    ${sysToken}
     Set Test Variable    ${playerToken}    ${resp.json()['data']['usertoken']}
-    ${resp} =    Gameboy Player Gamelink Post    ${playerToken}    ${gameHall}    ${gametech}    ${gameplat}    ${gamecode}    ${gametype}    ${lang}
+    ${resp} =    Gameboy Player Gamelink Post    ${playerToken}    ${gameHall}    ${gametech}    ${gameplat}    1    ${gametype}    ${lang}
     Set Test Variable    ${gameLink}    ${resp.json()['data']['url']}
-    ${resp} =    Gameboy Player Deposit Post    10000    ${playerAccount}
+    ${resp} =    Gameboy Player Deposit Post    10000    ${agentPlayerAct}
 
 SuiteTeardown
     Log Out
