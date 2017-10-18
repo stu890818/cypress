@@ -10,11 +10,11 @@ Go To Login Page
     Title Should Be    管端后台系统
 
 Log In
-    [Arguments]    ${userName}    ${password}    ${url}
+    [Arguments]    ${userName}    ${password}    ${url}    ${tittle}
     Go To Login Page    ${url}
     Input User Username    ${userName}
     Input User Password    ${password}
     Click 登入 Button
-    Wait Until Keyword Succeeds    2 min    5 sec    Wait Until Element Contains    //*[@id="root"]//div[2]/div[1]/span[2]    玩家列表
+    Wait Until Keyword Succeeds    2 min    5 sec    Wait Until Element Contains    //*[@id="root"]//div[2]/div[1]/span[2]    ${tittle}
 
 # -------- Verify --------

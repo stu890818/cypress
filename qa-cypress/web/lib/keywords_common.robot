@@ -19,15 +19,13 @@ Input User Username
     Selenium2Library.Input Text    //*[@placeholder="帐号"]    ${email}
 
 # -------- Keyword --------
-Create A Random Role User
-    [Arguments]    ${userName}    ${password}    ${account}    ${pwd}    ${comm}
-    Log In    ${userName}    ${password}    ${CYPRESS_QA_API_URL}
-    Create A New User    ${account}    ${pwd}    ${account}    ${comm}
-    Log Out
+Get Day Gap Format
+    ${time} =    Evaluate    time.strftime("%Y/%m/%d", time.localtime())    time
+    Set Suite Variable    ${dayTime}    time
 
 Get User SYS Token
-    [Arguments]    ${userName}    ${password}
-    Log In    ${userName}    ${password}    ${CYPRESS_QA_API_URL}
+    [Arguments]    ${userName}    ${password}    ${tittle}
+    Log In    ${userName}    ${password}    ${CYPRESS_QA_URL}    ${tittle}
     Go To Parent List Parent Info Page
     ${sysToken} =     Get Sys Token
     [Return]    ${sysToken}
@@ -69,3 +67,9 @@ Set Regular Get Any Game Link Date
     Set Suite Variable    ${lang}    zh-cn
 
 # -------- Verify --------
+Verify Should Be Redirected To Parent Payers Page
+    [Arguments]    ${general}    ${from}    ${to}    ${groupby}    ${cur}    ${agent}
+    ${url} =    Get Location
+    ${pattern} =    Set Variable    ${CYPRESS_QA_URL}/#/parent/players?owneracc=${general}&fromdate=${from}&todate=${to}&groupby=${groupby}&currency=${cur}&parentid=${agent}
+    Should Be Equal    ${url}    ${pattern}
+

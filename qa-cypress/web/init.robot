@@ -7,8 +7,7 @@ Library           Process
 Library           RequestsLibrary
 Library           Selenium2Library
 Library           String
-# Library           SikuliLibrary
-# Library           ImageHorizonLibrary
+Library           SikuliLibrary
 Library           Screenshot
 Library           ../web/lib/CypressQaAPI.py
 
