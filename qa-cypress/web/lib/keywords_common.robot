@@ -32,6 +32,17 @@ Get Day Gap Format
     ${time} =    Evaluate    time.strftime("%Y/%m/%d", time.localtime())    time
     Set Suite Variable    ${dayTime}    time
 
+Get Game Link
+    [Arguments]    ${token}    ${hall}    ${tech}    ${plat}    ${ID}    ${type}    ${lan}
+    ${time} =    Evaluate    time.strftime("%Y%m%d%H%M%S")    time
+    Set Suite Variable    ${player}    player${time}
+    Gameboy Player Post    ${player}    ${player}    ${player}    ${token}
+    ${resp} =    Gameboy Player Login Post    ${player}    ${player}    ${player}    ${token}
+    Set Suite Variable    ${playerToken}    ${resp.json()['data']['usertoken']}
+    ${resp} =    Gameboy Player Gamelink Post    ${playerToken}    ${hall}    ${tech}    ${plat}    ${ID}    ${type}    ${lan}
+    Gameboy Player Deposit Post    100    ${player}
+    Set Suite Variable    ${gameLink}    ${resp.json()['data']['url']}
+
 Get User SYS Token
     [Arguments]    ${userName}    ${password}    ${tittle}
     Log In    ${userName}    ${password}    ${CYPRESS_QA_URL}    ${tittle}
@@ -53,6 +64,15 @@ Open Default Browser
     [Arguments]    ${url}
     Open Browser    ${url}    ${DEFAULT_BROWSER}
     Set Window Size    ${WINDOW_WEIGHT}    ${WINDOW_HEIGHT}
+
+Player Spin Game
+    [Arguments]    ${token}    ${hall}    ${tech}    ${plat}    ${ID}    ${type}    ${lan}    ${spin}    ${take}
+    Get Game Link    ${token}    ${hall}    ${tech}    ${plat}    ${ID}    ${type}    ${lan}
+    Go To    ${gameLink}
+    Wait Until Keyword Succeeds    2 min    5 sec    SikuliLibrary.Click    ${spin}
+    Sleep    5s
+    Wait Until Keyword Succeeds    2 min    5 sec    SikuliLibrary.Click    ${take}
+    Sleep    1s
 
 Set Create Random Player Data
     [Arguments]    ${time}
