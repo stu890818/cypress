@@ -8,10 +8,10 @@ Test Timeout    300
 
 *** Test Cases ***
 Admin should can search agent report
-    [Setup]    Player Spin Game    ${generalToken}
+    [Setup]    Player Spin Game    ${agentToken}
     Login Cypress And Search Agent Report    ${ADMIN_USER}    ${ADMIN_USER_PASSWORD}    ${roleGen}    ${roleAgn}
-    Verify Should Can Search Agent Report Success    ${agentAccount}    1    ${betMoney}    ${totalWin}    ${balValue}0    ${currency}    ${retRateValue}%    1    1    1    ${avgBetValue}
-    Verify Should Be Redirected To Parent Payers Page    ${roleGen}    ${dayTime}    ${dayTime}    day    ${currency}    ${roleAgn}
+    Verify Should Can Search Agent Report Success    ${roleGen}    1    ${betMoney}    ${totalWin}    ${balValue}0    ${currency}    ${retRateValue}%    1    1    1    ${avgBetValue}
+    Verify Should Can Link To Parent Players Page    ${roleGen}    ${dayTime}    ${dayTime}    day    ${currency}    ${roleAgn}
 
 *** Keywords ***
 Login Cypress And Search Agent Report
@@ -25,10 +25,10 @@ Player Spin Game
     [Arguments]    ${token}
     TestSetUpForGetGameLink    ${token}
     Open Default Browser    ${gameLink}
-    Wait Until Keyword Succeeds    2 min    5 sec    Wait Until Screen Contain    1_tittle.png    10
-    Wait Until Keyword Succeeds    2 min    5 sec    SikuliLibrary.Click    1_start.png
-    Sleep    10s
-    Wait Until Keyword Succeeds    2 min    5 sec    SikuliLibrary.Click    1_start.png
+    Wait Until Keyword Succeeds    2 min    5 sec    SikuliLibrary.Click    1_spin.png
+    Sleep    5s
+    Wait Until Keyword Succeeds    2 min    5 sec    SikuliLibrary.Click    1_takewin.png
+    Sleep    1s
 
 SuiteSetup
     ${time} =    Evaluate    time.strftime("%Y%m%d%H%M%S")    time
@@ -44,13 +44,16 @@ SuiteSetup
     Set Suite Variable    ${spinCount}    1
     Add Image Path    ${imageDir}
     Get Day Gap Format
-    Create A Random Role User    ${ADMIN_USER}    ${ADMIN_USER_PASSWORD}    ${roleGen}    ${roleGen}    ${comm}    代理列表
-    ${generalToken} =    Get User SYS Token    ${roleGen}    ${roleGen}    玩家列表
-    Create A Random Role User    ${roleGen}    ${roleGen}    ${roleAgn}    ${roleAgn}    ${comm}    玩家列表
-    ${agentToken} =    Get User SYS Token    ${roleAgn}    ${roleAgn}    玩家列表
+    Create A Random Role User    ${ADMIN_USER}    ${ADMIN_USER_PASSWORD}    ${roleGen}    ${COMMON_PASSWORD}    ${comm}    代理列表
+    ${generalToken} =    Get User SYS Token    ${roleGen}    ${COMMON_PASSWORD}    玩家列表
+    Set Suite Variable    ${generalToken}
+    Create A Random Role User    ${roleGen}    ${COMMON_PASSWORD}    ${roleAgn}    ${COMMON_PASSWORD}    ${comm}    玩家列表
+    ${agentToken} =    Get User SYS Token    ${roleAgn}    ${COMMON_PASSWORD}    玩家列表
+    Set Suite Variable    ${agentToken}
 
 SuiteTeardown
     Log Out
+    Remove Image Path    ${imageDir}
     Close All Browsers
 
 TestSetUpForGetGameLink
@@ -67,6 +70,7 @@ TestSetUpForGetGameLink
 Verify Should Can Search Agent Report Success
     [Arguments]    ${account}    ${player}    ${bet}    ${win}    ${balance}    ${currency}    ${returnRate}    ${reaPlayer}    ${openGame}    ${gameCount}    ${avgBet}
     Wait Until Page Contains Element    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[2]
+    Take Screenshot    test    width=800px
     Get Column Text And Verify Should Be Equal    tr    2    ${account}
     Get Column Text And Verify Should Be Equal    tr    3    ${player}
     Get Column Text And Verify Should Be Equal    tr    4    ${bet}
@@ -78,3 +82,8 @@ Verify Should Can Search Agent Report Success
     Get Column Text And Verify Should Be Equal    tr    10    ${openGame}
     Get Column Text And Verify Should Be Equal    tr    11    ${gameCount}
     Get Column Text And Verify Should Be Equal    tr    12    ${avgBet}
+
+Verify Should Can Link To Parent Players Page
+    [Arguments]    ${general}    ${from}    ${to}    ${groupby}    ${cur}    ${agent}
+    Click Element    //span[contains(.,'代理玩家报表')]
+    Verify Should Be Redirected To Parent Payers Page    ${general}    ${from}    ${to}    ${groupby}    ${cur}    ${agent}

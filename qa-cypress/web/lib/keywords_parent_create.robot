@@ -21,14 +21,6 @@ Input Agent Account Password
     Selenium2Library.Input Text    //*[@id="root"]//div[2]/div/div/input    ${pwd}
 
 # -------- Keyword --------
-Create A Random Role User
-    [Arguments]    ${userName}    ${password}    ${account}    ${pwd}    ${comm}    ${tittle}
-    Open Default Browser    ${CYPRESS_QA_URL}
-    Log In    ${userName}    ${password}    ${CYPRESS_QA_URL}    ${tittle}
-    Go To Parent Create Page
-    Create A New User    ${account}    ${pwd}    ${account}    ${comm}
-    Log Out
-
 Create A New User
     [Arguments]    ${account}    ${pwd}    ${name}    ${comm}
     Input Agent account    ${account}
@@ -50,3 +42,6 @@ Set Random Create Agent Value
     Set Test Variable    ${comm}
 
 # -------- Verify --------
+Verify Show Create New Role Sneak Bar Is Success
+    Wait Until Element Is Visible    //*[contains(.,'新建代理成功！')]
+    Wait Until Keyword Succeeds    2 min    5 sec    Wait Until Element Is Not Visible    //*[contains(.,'新建代理成功！')]

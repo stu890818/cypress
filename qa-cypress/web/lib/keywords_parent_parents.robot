@@ -19,7 +19,7 @@ Go To Parent Parents Page
 
 Admin Search Agent Report
     [Arguments]    ${generalAct}    ${agentAct}
-    Admin Input General Agent Account    ${agentAct}
+    Admin Input General Agent Account    ${generalAct}
     Admin Agent Account    ${agentAct}
     Click 搜索 Button
 
