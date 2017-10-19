@@ -19,6 +19,15 @@ Input User Username
     Selenium2Library.Input Text    //*[@placeholder="帐号"]    ${email}
 
 # -------- Keyword --------
+Create A Random Role User
+    [Arguments]    ${userName}    ${password}    ${account}    ${pwd}    ${comm}    ${tittle}
+    Open Default Browser    ${CYPRESS_QA_URL}
+    Log In    ${userName}    ${password}    ${CYPRESS_QA_URL}    ${tittle}
+    Go To Parent Create Page
+    Create A New User    ${account}    ${pwd}    ${account}    ${comm}
+    Verify Show Create New Role Sneak Bar Is Success
+    Log Out
+
 Get Day Gap Format
     ${time} =    Evaluate    time.strftime("%Y/%m/%d", time.localtime())    time
     Set Suite Variable    ${dayTime}    time
@@ -29,8 +38,6 @@ Get User SYS Token
     Go To Parent List Parent Info Page
     ${sysToken} =     Get Sys Token
     [Return]    ${sysToken}
-    # Set Test Variable
-    # Log Out
 
 Get Column Text And Verify Should Be Equal
     [Arguments]    ${line}    ${column}    ${data}
@@ -56,6 +63,7 @@ Set Create Random Player Data
 Set Regular Fruit King Info
     Set Suite Variable    ${gameName}    钻石水果王
     Set Suite Variable    ${betMoney}    9.00
+    Set Suite Variable    ${balValue}    10
 
 Set Regular Get Any Game Link Date
     [Arguments]    ${gameCode}
