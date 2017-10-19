@@ -10,7 +10,7 @@ Test Timeout    300
 Admin should can search agent report
     [Setup]    Player Spin Game    ${agentToken}
     Login Cypress And Search Agent Report    ${ADMIN_USER}    ${ADMIN_USER_PASSWORD}    ${roleGen}    ${roleAgn}
-    Verify Should Can Search Agent Report Success    ${roleGen}    1    ${betMoney}    ${totalWin}    ${balValue}0    ${currency}    ${retRateValue}%    1    1    1    ${avgBetValue}
+    Verify Should Can Search Agent Report Success    ${roleGen}    1    ${betMoney}    ${totalWin}    ${balValue}    ${currency}    ${retRateValue}%    1    1    1    ${avgBetValue}
     Verify Should Can Link To Parent Players Page    ${roleGen}    ${dayTime}    ${dayTime}    day    ${currency}    ${roleAgn}
 
 *** Keywords ***
@@ -39,8 +39,6 @@ SuiteSetup
     Set Suite Variable    ${imageDir}    ${CURDIR}/../res/1_picture/
     Set Suite Variable    ${roleGen}    roleG${time}
     Set Suite Variable    ${roleAgn}    roleA${time}
-    Set Suite Variable    ${currency}    CNY
-    Set Suite Variable    ${totalWin}    150.00
     Set Suite Variable    ${spinCount}    1
     Add Image Path    ${imageDir}
     Get Day Gap Format
@@ -70,7 +68,9 @@ TestSetUpForGetGameLink
 Verify Should Can Search Agent Report Success
     [Arguments]    ${account}    ${player}    ${bet}    ${win}    ${balance}    ${currency}    ${returnRate}    ${reaPlayer}    ${openGame}    ${gameCount}    ${avgBet}
     Wait Until Page Contains Element    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[2]
-    Take Screenshot    test    width=800px
+    ${time} =    Evaluate    time.strftime("%Y-%m-%d", time.localtime())    time
+    Set Test Variable    ${dayTime}    time
+    Get Column Text And Verify Should Be Equal    tr    1    ${dayTime}
     Get Column Text And Verify Should Be Equal    tr    2    ${account}
     Get Column Text And Verify Should Be Equal    tr    3    ${player}
     Get Column Text And Verify Should Be Equal    tr    4    ${bet}

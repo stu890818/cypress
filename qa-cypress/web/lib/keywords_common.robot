@@ -63,7 +63,10 @@ Set Create Random Player Data
 Set Regular Fruit King Info
     Set Suite Variable    ${gameName}    钻石水果王
     Set Suite Variable    ${betMoney}    9.00
-    Set Suite Variable    ${balValue}    10
+    Set Suite Variable    ${balValue}    9.00
+    Set Suite Variable    ${totalWin}    150.00
+    Set Suite Variable    ${currency}    CNY
+    Set Suite Variable    ${avgBetValue}    9.00
 
 Set Regular Get Any Game Link Date
     [Arguments]    ${gameCode}
