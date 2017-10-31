@@ -6,7 +6,7 @@ WINDOW_WEIGHT = "1920"
 WINDOW_HEIGHT = "1080"
 
 # Cypress qa url
-CYPRESS_QA_URL = "http://bo.cqgame.qa"
+CYPRESS_QA_URL = "http://192.168.201.49:8080"
 
 # Cypress qa user
 ADMIN_USER = "adminqa"

@@ -10,13 +10,13 @@ Input Player Account
 
 Input User Password
     [Arguments]    ${password}
-    Wait Until Page Contains Element    //*[@placeholder="密码"]
-    Selenium2Library.Input Text    //*[@placeholder="密码"]    ${password}
+    Wait Until Page Contains Element    //*[@type="password"]
+    Selenium2Library.Input Text    //*[@type="password"]    ${password}
 
 Input User Username
     [Arguments]    ${email}
-    Wait Until Page Contains Element    //*[@placeholder="帐号"]
-    Selenium2Library.Input Text    //*[@placeholder="帐号"]    ${email}
+    Wait Until Page Contains Element    //*[@type="text"]
+    Selenium2Library.Input Text    //*[@type="text"]    ${email}
 
 # -------- Keyword --------
 Create A Random Role User

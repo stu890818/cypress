@@ -4,9 +4,8 @@
 # -------- Keyword --------
 Log Out
     [Documentation]    log out page
-    Wait Until Page Contains Element    //*[@id="root"]//button[2]
-    Click Element    //*[@id="root"]//button[2]
-    Wait Until Page Contains    LOGIN
+    Go To    ${CYPRESS_QA_URL}/#/logout
+    Wait Until Page Contains    管端后台系统
     Title Should Be    管端后台系统
 
 # -------- Verify --------

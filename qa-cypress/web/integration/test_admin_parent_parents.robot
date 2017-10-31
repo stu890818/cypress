@@ -17,7 +17,7 @@ Test Timeout    300
 
 Admin should can search agent report
     Login Cypress And Search Agent Report    ${ADMIN_USER}    ${ADMIN_USER_PASSWORD}    ${roleGen}    ${roleAgn}
-    Verify Should Can Search Agent Report Success    ${roleAgn}    1    ${betMoney}    ${totalWin}    ${balValue}    ${currency}    ${retRateValue}%    1    1    1    ${avgBetValue}    tr
+    Verify Should Can Search Agent Report Success    ${roleAgn}    ${currency}    1    ${betMoney}    ${totalWin}    ${balValue}    ${retRateValue}%    1    1    1    ${avgBetValue}    tr
     Verify Should Can Link To Parent Players Page    ${roleGen}    ${dayTime}    ${dayTime}    day    ${currency}    ${roleAgn}    tr[1]    td[13]
 
 *** Keywords ***
@@ -61,17 +61,17 @@ TestSetUpForCreateAnotherAgentAndSpinGame
     Player Spin Game    ${agentBToken}    ${gameHall}    ${gametech}    ${gameplat}    ${gameID}    ${gametype}    ${lang}    1_spin.png    1_takewin.png
 
 Verify Should Can Search Agent Report Success
-    [Arguments]    ${account}    ${player}    ${bet}    ${win}    ${balance}    ${currency}    ${returnRate}    ${reaPlayer}    ${openGame}    ${gameCount}    ${avgBet}    ${line}
-    Wait Until Page Contains Element    //*[@id="root"]//div[3]/div[2]/div[2]/div[1]/div/div/table/tbody/tr/td[2]
+    [Arguments]    ${account}    ${currency}    ${player}    ${bet}    ${win}    ${balance}    ${returnRate}    ${reaPlayer}    ${openGame}    ${gameCount}    ${avgBet}    ${line}
+    Wait Until Page Contains Element    //*[@id="app"]//div[3]/table/tbody/tr/td[2]/div
     ${time} =    Evaluate    time.strftime("%Y-%m-%d", time.localtime())    time
     Set Test Variable    ${dayTime}    time
     Get Column Text And Verify Should Be Equal    ${line}    1    ${dayTime}
     Get Column Text And Verify Should Be Equal    ${line}    2    ${account}
-    Get Column Text And Verify Should Be Equal    ${line}    3    ${player}
-    Get Column Text And Verify Should Be Equal    ${line}    4    ${bet}
-    Get Column Text And Verify Should Be Equal    ${line}    5    ${win}
-    Get Column Text And Verify Should Be Equal    ${line}    6    ${balance}
-    Get Column Text And Verify Should Be Equal    ${line}    7    ${currency}
+    Get Column Text And Verify Should Be Equal    ${line}    3    ${currency}
+    Get Column Text And Verify Should Be Equal    ${line}    4    ${player}
+    Get Column Text And Verify Should Be Equal    ${line}    5    ${bet}
+    Get Column Text And Verify Should Be Equal    ${line}    6    ${win}
+    Get Column Text And Verify Should Be Equal    ${line}    7    ${balance}
     Get Column Text And Verify Should Be Equal    ${line}    8    ${returnRate}
     Get Column Text And Verify Should Be Equal    ${line}    9    ${reaPlayer}
     Get Column Text And Verify Should Be Equal    ${line}    10    ${openGame}
